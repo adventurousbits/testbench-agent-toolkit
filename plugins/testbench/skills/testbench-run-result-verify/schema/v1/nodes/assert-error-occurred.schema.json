@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/assert-error-occurred.schema.json",
+  "title": "Verify an error occurred",
+  "description": "Passes when an earlier step failed with the error named here, and consumes that error so it does not fail the test.",
+  "x-testbench": {
+    "assertType": "AssertErrorOccurred",
+    "failableReferenceKeys": ["referredRecordGuid"]
+  },
+  "type": "object",
+  "required": ["assertType", "referredRecordGuid", "exceptionTypeToVerify"],
+  "additionalProperties": false,
+  "properties": {
+    "assertType": {
+      "const": "AssertErrorOccurred"
+    },
+    "referredRecordGuid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid",
+      "description": "The guid of the earlier step expected to fail."
+    },
+    "objectApiName": {
+      "anyOf": [
+        {
+          "$ref": "../common.schema.json#/$defs/apiName"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The object of that step. Written by the editor; not used."
+    },
+    "exceptionTypeToVerify": {
+      "description": "null means any error. A status code can only be checked under System.DmlException.",
+      "enum": [
+        null,
+        "System.SObjectException",
+        "System.SecurityException",
+        "System.NoAccessException",
+        "System.QueryException",
+        "System.NoDataFoundException",
+        "System.DmlException",
+        "System.CalloutException",
+        "System.JSONException",
+        "System.XmlException",
+        "System.EmailException",
+        "System.AsyncException",
+        "System.FlowException",
+        "System.SerializationException"
+      ]
+    },
+    "statusCodeToVerify": {
+      "enum": [
+        null,
+        "REQUIRED_FIELD_MISSING",
+        "FIELD_CUSTOM_VALIDATION_EXCEPTION",
+        "DUPLICATES_DETECTED",
+        "DUPLICATE_VALUE",
+        "INVALID_CROSS_REFERENCE_KEY",
+        "INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY",
+        "INSUFFICIENT_ACCESS_OR_READONLY",
+        "CANNOT_INSERT_UPDATE_ACTIVATE_ENTITY",
+        "CANNOT_EXECUTE_FLOW_TRIGGER",
+        "STRING_TOO_LONG",
+        "NUMBER_OUTSIDE_VALID_RANGE",
+        "INVALID_EMAIL_ADDRESS",
+        "INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST"
+      ]
+    }
+  },
+  "if": {
+    "required": ["statusCodeToVerify"],
+    "properties": {
+      "statusCodeToVerify": {
+        "type": "string"
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "exceptionTypeToVerify": {
+        "const": "System.DmlException"
+      }
+    }
+  }
+}

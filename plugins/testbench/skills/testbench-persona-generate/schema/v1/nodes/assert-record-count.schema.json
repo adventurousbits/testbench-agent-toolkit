@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/assert-record-count.schema.json",
+  "title": "Verify record count",
+  "description": "Counts the records of an object that match every filter, and compares the count.",
+  "x-testbench": {
+    "assertType": "AssertRecordCount",
+    "objectKey": "objectApiName",
+    "objectAccess": "queryable",
+    "entryLists": {
+      "fieldsToFilterBy": {
+        "kind": "comparison",
+        "access": "filterable"
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "assertType",
+    "objectApiName",
+    "expectedRecordCount",
+    "expectedRecordCountOperator"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "assertType": {
+      "const": "AssertRecordCount"
+    },
+    "objectApiName": {
+      "$ref": "../common.schema.json#/$defs/apiName"
+    },
+    "fieldsToFilterBy": {
+      "type": "array",
+      "items": {
+        "$ref": "../common.schema.json#/$defs/comparisonEntry"
+      }
+    },
+    "expectedRecordCount": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,8})$"
+    },
+    "expectedRecordCountOperator": {
+      "enum": ["eq", "ne", "gt", "ge", "lt", "le"]
+    }
+  }
+}

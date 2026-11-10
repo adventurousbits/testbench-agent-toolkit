@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/assert-outcome.schema.json",
+  "title": "Verify Outcome",
+  "description": "Checks the outcome. Its description should say what the check proves.",
+  "x-testbench": {
+    "nodeType": "AssertOutcome",
+    "editorName": "Verify Outcome",
+    "subtypeKey": "assertType",
+    "recommendsDescription": true
+  },
+  "type": "object",
+  "required": ["guid", "type", "label", "details"],
+  "additionalProperties": false,
+  "properties": {
+    "guid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid"
+    },
+    "type": {
+      "const": "AssertOutcome"
+    },
+    "label": {
+      "$ref": "../common.schema.json#/$defs/nodeLabel"
+    },
+    "description": {
+      "$ref": "../common.schema.json#/$defs/nodeDescription"
+    },
+    "labelAutoUpdate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdate"
+    },
+    "labelAutoUpdateTemplate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdateTemplate"
+    },
+    "details": {
+      "description": "One of the Verify Outcome kinds, chosen by assertType.",
+      "anyOf": [
+        {
+          "$ref": "assert-record-field-values.schema.json"
+        },
+        {
+          "$ref": "assert-record-count.schema.json"
+        },
+        {
+          "$ref": "assert-error-occurred.schema.json"
+        }
+      ]
+    }
+  }
+}

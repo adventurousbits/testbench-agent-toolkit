@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/update-record.schema.json",
+  "title": "Update Record",
+  "description": "Changes fields on a record an earlier step created or found, or a template created.",
+  "x-testbench": {
+    "nodeType": "UpdateRecord",
+    "editorName": "Update Record",
+    "failable": true,
+    "recordReferenceKeys": ["referredRecordGuid"],
+    "sameObjectAsReference": true,
+    "objectKey": "objectApiName",
+    "objectAccess": "updateable",
+    "entryLists": {
+      "fieldsToUpdate": {
+        "kind": "value",
+        "access": "updateable"
+      }
+    }
+  },
+  "type": "object",
+  "required": ["guid", "type", "label", "details"],
+  "additionalProperties": false,
+  "properties": {
+    "guid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid"
+    },
+    "type": {
+      "const": "UpdateRecord"
+    },
+    "label": {
+      "$ref": "../common.schema.json#/$defs/nodeLabel"
+    },
+    "description": {
+      "$ref": "../common.schema.json#/$defs/nodeDescription"
+    },
+    "labelAutoUpdate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdate"
+    },
+    "labelAutoUpdateTemplate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdateTemplate"
+    },
+    "details": {
+      "type": "object",
+      "required": ["referredRecordGuid", "objectApiName", "fieldsToUpdate"],
+      "additionalProperties": false,
+      "properties": {
+        "referredRecordGuid": {
+          "$ref": "../common.schema.json#/$defs/recordReference"
+        },
+        "objectApiName": {
+          "$ref": "../common.schema.json#/$defs/apiName"
+        },
+        "fieldsToUpdate": {
+          "type": "array",
+          "items": {
+            "$ref": "../common.schema.json#/$defs/valueEntry"
+          }
+        }
+      }
+    }
+  }
+}

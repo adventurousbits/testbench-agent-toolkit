@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/delete-record.schema.json",
+  "title": "Delete Record",
+  "description": "Deletes a record an earlier step created or found, or a template created.",
+  "x-testbench": {
+    "nodeType": "DeleteRecord",
+    "editorName": "Delete Record",
+    "failable": true,
+    "recordReferenceKeys": ["referredRecordGuid"],
+    "sameObjectAsReference": true,
+    "objectKey": "objectApiName",
+    "objectAccess": "deletable"
+  },
+  "type": "object",
+  "required": ["guid", "type", "label", "details"],
+  "additionalProperties": false,
+  "properties": {
+    "guid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid"
+    },
+    "type": {
+      "const": "DeleteRecord"
+    },
+    "label": {
+      "$ref": "../common.schema.json#/$defs/nodeLabel"
+    },
+    "description": {
+      "$ref": "../common.schema.json#/$defs/nodeDescription"
+    },
+    "labelAutoUpdate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdate"
+    },
+    "labelAutoUpdateTemplate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdateTemplate"
+    },
+    "details": {
+      "type": "object",
+      "required": ["referredRecordGuid", "objectApiName"],
+      "additionalProperties": false,
+      "properties": {
+        "referredRecordGuid": {
+          "$ref": "../common.schema.json#/$defs/recordReference"
+        },
+        "objectApiName": {
+          "$ref": "../common.schema.json#/$defs/apiName"
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 0,
+          "description": "Written empty by the editor."
+        }
+      }
+    }
+  }
+}

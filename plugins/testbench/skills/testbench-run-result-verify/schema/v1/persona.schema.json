@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "persona.schema.json",
+  "title": "Testbench personas",
+  "description": "Persona categories, personas and their versions. A persona is a user, created when a test runs, with the fields, permissions and memberships its active version names.",
+  "$defs": {
+    "personaCategory": {
+      "type": "object",
+      "required": ["GUID__c", "Name"],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/personaCategoryGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Description__c": {
+          "type": "string",
+          "maxLength": 32768
+        }
+      }
+    },
+    "persona": {
+      "type": "object",
+      "required": ["GUID__c", "Name", "Persona_Category__c"],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/personaGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Persona_Category__c": {
+          "$ref": "common.schema.json#/$defs/personaCategoryGuid"
+        }
+      }
+    },
+    "personaVersion": {
+      "type": "object",
+      "required": [
+        "GUID__c",
+        "Name",
+        "Persona__c",
+        "Editor_Version__c",
+        "User_Fields__c"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/personaVersionGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Description__c": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "Persona__c": {
+          "$ref": "common.schema.json#/$defs/personaGuid"
+        },
+        "Editor_Version__c": {
+          "$ref": "common.schema.json#/$defs/editorVersion"
+        },
+        "User_Fields__c": {
+          "$ref": "#/$defs/userFieldsField"
+        },
+        "Permission_Sets__c": {
+          "$ref": "#/$defs/nameListField"
+        },
+        "Permission_Set_Groups__c": {
+          "$ref": "#/$defs/nameListField"
+        },
+        "Permission_Set_Licenses__c": {
+          "$ref": "#/$defs/nameListField"
+        },
+        "Group_Memberships__c": {
+          "$ref": "#/$defs/nameListField"
+        },
+        "Territory_Assignments__c": {
+          "$ref": "#/$defs/nameListField"
+        }
+      }
+    },
+    "nameListField": {
+      "description": "API names or developer names, written as a JSON array or as the JSON text of one.",
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/nameList"
+        },
+        {
+          "type": "string",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "common.schema.json#/$defs/nameList"
+          }
+        }
+      ]
+    },
+    "userFieldsField": {
+      "description": "User field values, written as a JSON object or as the JSON text of one.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/userFields"
+        },
+        {
+          "type": "string",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/userFields"
+          }
+        }
+      ]
+    },
+    "userFields": {
+      "description": "User field API name to value. Every value is text. The required fields are the ones a user cannot be created without.",
+      "x-testbench": {
+        "recordObject": "User"
+      },
+      "type": "object",
+      "required": [
+        "Username",
+        "LastName",
+        "Email",
+        "Alias",
+        "ProfileId",
+        "TimeZoneSidKey",
+        "LocaleSidKey",
+        "EmailEncodingKey",
+        "LanguageLocaleKey"
+      ],
+      "propertyNames": {
+        "$ref": "common.schema.json#/$defs/apiName"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "properties": {
+        "Alias": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8
+        }
+      }
+    }
+  }
+}

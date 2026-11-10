@@ -1,0 +1,27 @@
+{
+  "name": "testbench",
+  "version": "1.0.0",
+  "description": "Write, check, run and explain Testbench tests for Salesforce from your coding assistant: no-code regression tests built from Arrange, Act and Assert steps, with personas and data templates.",
+  "author": {
+    "name": "Adventurous Bits"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "salesforce",
+    "testbench",
+    "regression testing",
+    "feature tests",
+    "personas",
+    "data templates",
+    "test automation",
+    "no-code testing"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Testbench",
+    "shortDescription": "Testbench tests for Salesforce",
+    "developerName": "Adventurous Bits",
+    "category": "Developer Tools",
+    "websiteURL": "https://github.com/adventurousbits/testbench-agent-toolkit"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/set-run-as-user.schema.json",
+  "title": "Select Persona",
+  "description": "Runs every following step as a persona, until the next Select Persona step.",
+  "x-testbench": {
+    "nodeType": "SetRunAsUser",
+    "editorName": "Select Persona",
+    "personaKey": "personaGuid"
+  },
+  "type": "object",
+  "required": ["guid", "type", "label", "details"],
+  "additionalProperties": false,
+  "properties": {
+    "guid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid"
+    },
+    "type": {
+      "const": "SetRunAsUser"
+    },
+    "label": {
+      "$ref": "../common.schema.json#/$defs/nodeLabel"
+    },
+    "description": {
+      "$ref": "../common.schema.json#/$defs/nodeDescription"
+    },
+    "labelAutoUpdate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdate"
+    },
+    "labelAutoUpdateTemplate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdateTemplate"
+    },
+    "details": {
+      "type": "object",
+      "required": ["personaGuid"],
+      "additionalProperties": false,
+      "properties": {
+        "personaGuid": {
+          "description": "The persona every following step runs as, until the next Select Persona step, across sections. null returns to the test's own user.",
+          "anyOf": [
+            {
+              "$ref": "../common.schema.json#/$defs/personaGuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "feature-test.schema.json",
+  "title": "Testbench feature tests",
+  "description": "Feature test categories, feature tests and their versions. A version's steps run in section order: Arrange, then Act, then Assert.",
+  "x-testbench": {
+    "sections": [
+      {
+        "name": "Arrange",
+        "field": "Arrange_Definition_Data__c"
+      },
+      {
+        "name": "Act",
+        "field": "Act_Definition_Data__c"
+      },
+      {
+        "name": "Assert",
+        "field": "Assert_Definition_Data__c"
+      }
+    ]
+  },
+  "$defs": {
+    "featureTestCategory": {
+      "type": "object",
+      "required": ["GUID__c", "Name"],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/featureTestCategoryGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Description__c": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      }
+    },
+    "featureTest": {
+      "type": "object",
+      "required": ["GUID__c", "Name", "Feature_Test_Category__c"],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/featureTestGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Feature_Test_Category__c": {
+          "$ref": "common.schema.json#/$defs/featureTestCategoryGuid"
+        }
+      }
+    },
+    "featureTestVersion": {
+      "type": "object",
+      "required": [
+        "GUID__c",
+        "Name",
+        "Feature_Test__c",
+        "Editor_Version__c",
+        "Arrange_Definition_Data__c",
+        "Act_Definition_Data__c",
+        "Assert_Definition_Data__c"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/featureTestVersionGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Description__c": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "Feature_Test__c": {
+          "$ref": "common.schema.json#/$defs/featureTestGuid"
+        },
+        "Editor_Version__c": {
+          "$ref": "common.schema.json#/$defs/editorVersion"
+        },
+        "Arrange_Definition_Data__c": {
+          "$ref": "#/$defs/arrangeDefinition"
+        },
+        "Act_Definition_Data__c": {
+          "$ref": "#/$defs/actDefinition"
+        },
+        "Assert_Definition_Data__c": {
+          "$ref": "#/$defs/verifyDefinition"
+        }
+      }
+    },
+    "arrangeDefinition": {
+      "description": "The Arrange steps, written as a JSON array or as the JSON text of one.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/arrangeNodes"
+        },
+        {
+          "type": "string",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/arrangeNodes"
+          }
+        }
+      ]
+    },
+    "actDefinition": {
+      "description": "The Act steps, written as a JSON array or as the JSON text of one.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/actNodes"
+        },
+        {
+          "type": "string",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/actNodes"
+          }
+        }
+      ]
+    },
+    "verifyDefinition": {
+      "description": "The Assert steps, written as a JSON array or as the JSON text of one.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/assertNodes"
+        },
+        {
+          "type": "string",
+          "contentMediaType": "application/json",
+          "contentSchema": {
+            "$ref": "#/$defs/assertNodes"
+          }
+        }
+      ]
+    },
+    "arrangeNodes": {
+      "type": "array",
+      "items": {
+        "description": "One step. Its type decides its shape.",
+        "anyOf": [
+          {
+            "$ref": "nodes/set-run-as-user.schema.json"
+          },
+          {
+            "$ref": "nodes/use-data-template.schema.json"
+          },
+          {
+            "$ref": "nodes/create-record.schema.json"
+          }
+        ]
+      }
+    },
+    "actNodes": {
+      "type": "array",
+      "items": {
+        "description": "One step. Its type decides its shape.",
+        "anyOf": [
+          {
+            "$ref": "nodes/set-run-as-user.schema.json"
+          },
+          {
+            "$ref": "nodes/get-record.schema.json"
+          },
+          {
+            "$ref": "nodes/create-record.schema.json"
+          },
+          {
+            "$ref": "nodes/update-record.schema.json"
+          },
+          {
+            "$ref": "nodes/delete-record.schema.json"
+          }
+        ]
+      }
+    },
+    "assertNodes": {
+      "type": "array",
+      "items": {
+        "description": "One step. Its type decides its shape.",
+        "anyOf": [
+          {
+            "$ref": "nodes/set-run-as-user.schema.json"
+          },
+          {
+            "$ref": "nodes/get-record.schema.json"
+          },
+          {
+            "$ref": "nodes/assert-outcome.schema.json"
+          }
+        ]
+      }
+    }
+  }
+}

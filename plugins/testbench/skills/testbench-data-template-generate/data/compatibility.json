@@ -1,0 +1,5 @@
+{
+  "description": "The Testbench package versions this toolkit was built and tested against. A release of the toolkit updates these when it supports a new package version.",
+  "minimum": "1.6.0",
+  "testedWith": "1.6.0"
+}

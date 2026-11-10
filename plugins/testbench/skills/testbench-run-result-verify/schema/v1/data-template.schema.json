@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "data-template.schema.json",
+  "title": "Testbench data templates",
+  "description": "Data template categories, data templates and their versions. A template is a set of related records, created together wherever it is loaded.",
+  "$defs": {
+    "dataTemplateCategory": {
+      "type": "object",
+      "required": ["GUID__c", "Name"],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/dataTemplateCategoryGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Description__c": {
+          "type": "string",
+          "maxLength": 32768
+        }
+      }
+    },
+    "dataTemplate": {
+      "type": "object",
+      "required": ["GUID__c", "Name", "Type__c", "Data_Template_Category__c"],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/dataTemplateGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Type__c": {
+          "enum": ["Regular", "Global"],
+          "description": "Regular: created where a test loads it or a reference names it. Global: created at the start of every test run."
+        },
+        "Data_Template_Category__c": {
+          "$ref": "common.schema.json#/$defs/dataTemplateCategoryGuid",
+          "description": "The category. A Global template's is always Global Templates, CGlobalTemplates; a Regular template's is any other."
+        }
+      },
+      "if": {
+        "required": ["Type__c"],
+        "properties": {
+          "Type__c": {
+            "const": "Global"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "Data_Template_Category__c": {
+            "const": "CGlobalTemplates"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "Data_Template_Category__c": {
+            "pattern": "^C[0-9a-f]{32}$"
+          }
+        }
+      }
+    },
+    "dataTemplateVersion": {
+      "type": "object",
+      "required": [
+        "GUID__c",
+        "Name",
+        "Data_Template__c",
+        "Editor_Version__c",
+        "Definition_Data__c"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "GUID__c": {
+          "$ref": "common.schema.json#/$defs/dataTemplateVersionGuid"
+        },
+        "Name": {
+          "$ref": "common.schema.json#/$defs/name"
+        },
+        "Description__c": {
+          "type": "string",
+          "maxLength": 32768
+        },
+        "Data_Template__c": {
+          "$ref": "common.schema.json#/$defs/dataTemplateGuid"
+        },
+        "Editor_Version__c": {
+          "$ref": "common.schema.json#/$defs/editorVersion"
+        },
+        "Definition_Data__c": {
+          "description": "The template's records, written as a JSON array or as the JSON text of one.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/templateNodes"
+            },
+            {
+              "type": "string",
+              "contentMediaType": "application/json",
+              "contentSchema": {
+                "$ref": "#/$defs/templateNodes"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "templateNodes": {
+      "type": "array",
+      "items": {
+        "description": "One step. Its type decides its shape.",
+        "anyOf": [
+          {
+            "$ref": "nodes/create-record.schema.json"
+          }
+        ]
+      }
+    }
+  }
+}

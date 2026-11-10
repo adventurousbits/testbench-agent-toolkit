@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/use-data-template.schema.json",
+  "title": "Use Data Template",
+  "description": "Creates a Regular data template's records at this point, as whoever the step runs as.",
+  "x-testbench": {
+    "nodeType": "UseDataTemplate",
+    "editorName": "Use Data Template",
+    "loadsTemplateKey": "dataTemplateGuid"
+  },
+  "type": "object",
+  "required": ["guid", "type", "label", "details"],
+  "additionalProperties": false,
+  "properties": {
+    "guid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid"
+    },
+    "type": {
+      "const": "UseDataTemplate"
+    },
+    "label": {
+      "$ref": "../common.schema.json#/$defs/nodeLabel"
+    },
+    "description": {
+      "$ref": "../common.schema.json#/$defs/nodeDescription"
+    },
+    "labelAutoUpdate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdate"
+    },
+    "labelAutoUpdateTemplate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdateTemplate"
+    },
+    "details": {
+      "type": "object",
+      "required": ["dataTemplateGuid"],
+      "additionalProperties": false,
+      "properties": {
+        "dataTemplateGuid": {
+          "$ref": "../common.schema.json#/$defs/dataTemplateGuid"
+        }
+      }
+    }
+  }
+}

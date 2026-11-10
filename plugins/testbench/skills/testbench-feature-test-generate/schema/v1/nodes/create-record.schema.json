@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nodes/create-record.schema.json",
+  "title": "Create Record",
+  "description": "Creates one record. Later steps refer to it by this step's guid.",
+  "x-testbench": {
+    "nodeType": "CreateRecord",
+    "editorName": "Create Record (Prepare Record in Arrange)",
+    "producesRecord": true,
+    "failable": true,
+    "objectKey": "objectApiName",
+    "objectAccess": "createable",
+    "entryLists": {
+      "fieldsToCreate": {
+        "kind": "value",
+        "access": "createable"
+      }
+    }
+  },
+  "type": "object",
+  "required": ["guid", "type", "label", "details"],
+  "additionalProperties": false,
+  "properties": {
+    "guid": {
+      "$ref": "../common.schema.json#/$defs/nodeGuid"
+    },
+    "type": {
+      "const": "CreateRecord"
+    },
+    "label": {
+      "$ref": "../common.schema.json#/$defs/nodeLabel"
+    },
+    "description": {
+      "$ref": "../common.schema.json#/$defs/nodeDescription"
+    },
+    "labelAutoUpdate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdate"
+    },
+    "labelAutoUpdateTemplate": {
+      "$ref": "../common.schema.json#/$defs/labelAutoUpdateTemplate"
+    },
+    "details": {
+      "type": "object",
+      "required": ["objectApiName", "fieldsToCreate"],
+      "additionalProperties": false,
+      "properties": {
+        "objectApiName": {
+          "$ref": "../common.schema.json#/$defs/apiName"
+        },
+        "fieldsToCreate": {
+          "type": "array",
+          "items": {
+            "$ref": "../common.schema.json#/$defs/valueEntry"
+          }
+        }
+      }
+    }
+  }
+}

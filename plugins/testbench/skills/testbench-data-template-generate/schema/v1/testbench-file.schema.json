@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "testbench-file.schema.json",
+  "title": "Testbench file",
+  "description": "The allow-list for a Testbench file: the export envelope Testbench produces and imports. Every key a file may hold is described by this schema and the files it references, so anything not described is invalid. Rules about order and reference that a schema cannot express are checked by the toolkit's script.",
+  "x-testbench": {
+    "pushOrder": [
+      {
+        "array": "testPersonaCategories",
+        "object": "Persona_Category__c"
+      },
+      {
+        "array": "testPersonas",
+        "object": "Persona__c",
+        "parentField": "Persona_Category__c",
+        "parentObject": "Persona_Category__c"
+      },
+      {
+        "array": "testPersonaVersions",
+        "object": "Persona_Version__c",
+        "parentField": "Persona__c",
+        "parentObject": "Persona__c",
+        "isVersion": true
+      },
+      {
+        "array": "dataTemplateCategories",
+        "object": "Data_Template_Category__c"
+      },
+      {
+        "array": "dataTemplates",
+        "object": "Data_Template__c",
+        "parentField": "Data_Template_Category__c",
+        "parentObject": "Data_Template_Category__c"
+      },
+      {
+        "array": "dataTemplateVersions",
+        "object": "Data_Template_Version__c",
+        "parentField": "Data_Template__c",
+        "parentObject": "Data_Template__c",
+        "isVersion": true
+      },
+      {
+        "array": "featureTestCategories",
+        "object": "Feature_Test_Category__c"
+      },
+      {
+        "array": "featureTests",
+        "object": "Feature_Test__c",
+        "parentField": "Feature_Test_Category__c",
+        "parentObject": "Feature_Test_Category__c"
+      },
+      {
+        "array": "featureTestVersions",
+        "object": "Feature_Test_Version__c",
+        "parentField": "Feature_Test__c",
+        "parentObject": "Feature_Test__c",
+        "isVersion": true
+      }
+    ]
+  },
+  "type": "object",
+  "required": ["version", "data"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": 1,
+      "description": "The envelope version. Always 1."
+    },
+    "exportedAt": {
+      "type": "string",
+      "description": "When Testbench exported the file. Informational."
+    },
+    "scope": {
+      "enum": ["all", "category", "test", "persona", "dataTemplate"],
+      "description": "What an export covered. Informational."
+    },
+    "includeDependencies": {
+      "type": "boolean",
+      "description": "Whether an export followed references. Informational."
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "featureTestCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "feature-test.schema.json#/$defs/featureTestCategory"
+          }
+        },
+        "featureTests": {
+          "type": "array",
+          "items": {
+            "$ref": "feature-test.schema.json#/$defs/featureTest"
+          }
+        },
+        "featureTestVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "feature-test.schema.json#/$defs/featureTestVersion"
+          }
+        },
+        "testPersonaCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "persona.schema.json#/$defs/personaCategory"
+          }
+        },
+        "testPersonas": {
+          "type": "array",
+          "items": {
+            "$ref": "persona.schema.json#/$defs/persona"
+          }
+        },
+        "testPersonaVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "persona.schema.json#/$defs/personaVersion"
+          }
+        },
+        "dataTemplateCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "data-template.schema.json#/$defs/dataTemplateCategory"
+          }
+        },
+        "dataTemplates": {
+          "type": "array",
+          "items": {
+            "$ref": "data-template.schema.json#/$defs/dataTemplate"
+          }
+        },
+        "dataTemplateVersions": {
+          "type": "array",
+          "items": {
+            "$ref": "data-template.schema.json#/$defs/dataTemplateVersion"
+          }
+        }
+      }
+    }
+  }
+}

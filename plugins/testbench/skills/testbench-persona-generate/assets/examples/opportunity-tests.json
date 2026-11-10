@@ -1,0 +1,324 @@
+{
+  "version": 1,
+  "data": {
+    "testPersonaCategories": [
+      {
+        "GUID__c": "C6f19cd3143ec112feae60a07eda9f18d",
+        "Name": "Sales",
+        "Description__c": "The people who sell to customers."
+      }
+    ],
+    "testPersonas": [
+      {
+        "GUID__c": "Pde0a4fee174557bd788516a9bff70940",
+        "Name": "Sales representative",
+        "Persona_Category__c": "C6f19cd3143ec112feae60a07eda9f18d"
+      }
+    ],
+    "testPersonaVersions": [
+      {
+        "GUID__c": "V14604261f103e3c003e4a3eab2055e62",
+        "Name": "Sales representative",
+        "Persona__c": "Pde0a4fee174557bd788516a9bff70940",
+        "Editor_Version__c": 1,
+        "Description__c": "Sells to existing customers. Holds the Standard User profile and nothing more.",
+        "User_Fields__c": {
+          "FirstName": "Robin",
+          "LastName": "Jansen",
+          "Username": "robin.jansen@northwind-sales.example",
+          "Email": "robin.jansen@northwind-sales.example",
+          "Alias": "rjansen",
+          "ProfileId": "Standard User",
+          "Title": "Sales Representative",
+          "TimeZoneSidKey": "Europe/Amsterdam",
+          "LocaleSidKey": "nl_NL",
+          "EmailEncodingKey": "UTF-8",
+          "LanguageLocaleKey": "en_US"
+        },
+        "Permission_Sets__c": [],
+        "Permission_Set_Groups__c": [],
+        "Permission_Set_Licenses__c": [],
+        "Group_Memberships__c": [],
+        "Territory_Assignments__c": []
+      }
+    ],
+    "dataTemplateCategories": [
+      {
+        "GUID__c": "Cf1375fe07ee2fe6a7d685504ecfba3e4",
+        "Name": "Customers",
+        "Description__c": "Customers in the state a sale starts from."
+      }
+    ],
+    "dataTemplates": [
+      {
+        "GUID__c": "D7cd9cf007a2d892bb35fc09a8b000724",
+        "Name": "Customer account",
+        "Type__c": "Regular",
+        "Data_Template_Category__c": "Cf1375fe07ee2fe6a7d685504ecfba3e4"
+      }
+    ],
+    "dataTemplateVersions": [
+      {
+        "GUID__c": "V752d4f143601adcbce8ea3a0b942893e",
+        "Name": "Customer account",
+        "Data_Template__c": "D7cd9cf007a2d892bb35fc09a8b000724",
+        "Editor_Version__c": 1,
+        "Description__c": "A manufacturing customer with one contact.",
+        "Definition_Data__c": [
+          {
+            "guid": "N11b5cc6ab956dbbb36f0f8f47b69f67f",
+            "type": "CreateRecord",
+            "label": "Customer account",
+            "details": {
+              "objectApiName": "Account",
+              "fieldsToCreate": [
+                {
+                  "apiName": "Name",
+                  "dataType": "STRING",
+                  "value": "Northwind Traders"
+                },
+                {
+                  "apiName": "Industry",
+                  "dataType": "PICKLIST",
+                  "value": "Manufacturing"
+                },
+                {
+                  "apiName": "AnnualRevenue",
+                  "dataType": "CURRENCY",
+                  "value": "2500000"
+                }
+              ]
+            }
+          },
+          {
+            "guid": "N02b15b679b0c1dc9869b0e463bbac544",
+            "type": "CreateRecord",
+            "label": "Buyer at the customer",
+            "details": {
+              "objectApiName": "Contact",
+              "fieldsToCreate": [
+                {
+                  "apiName": "FirstName",
+                  "dataType": "STRING",
+                  "value": "Sam"
+                },
+                {
+                  "apiName": "LastName",
+                  "dataType": "STRING",
+                  "value": "de Vries"
+                },
+                {
+                  "apiName": "Email",
+                  "dataType": "EMAIL",
+                  "value": "sam.devries@northwind.example"
+                },
+                {
+                  "apiName": "AccountId",
+                  "dataType": "REFERENCE",
+                  "value": "N11b5cc6ab956dbbb36f0f8f47b69f67f"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "featureTestCategories": [
+      {
+        "GUID__c": "C17429b8caed74c24127762b71faa75b0",
+        "Name": "Opportunities",
+        "Description__c": "How a sale is opened and tracked."
+      }
+    ],
+    "featureTests": [
+      {
+        "GUID__c": "T068bff7f995b60974652bd3c11f6220b",
+        "Name": "A sales representative should be able to open an opportunity",
+        "Feature_Test_Category__c": "C17429b8caed74c24127762b71faa75b0"
+      },
+      {
+        "GUID__c": "T8783a4900d583b9cba4ef41e6a022980",
+        "Name": "An opportunity without a close date should be refused",
+        "Feature_Test_Category__c": "C17429b8caed74c24127762b71faa75b0"
+      }
+    ],
+    "featureTestVersions": [
+      {
+        "GUID__c": "Vb84043e36f19cdac22f2e556f301c1a5",
+        "Name": "A sales representative should be able to open an opportunity",
+        "Feature_Test__c": "T068bff7f995b60974652bd3c11f6220b",
+        "Editor_Version__c": 1,
+        "Description__c": "A representative can open an opportunity for a customer they own, so new sales are recorded where they belong.",
+        "Arrange_Definition_Data__c": [
+          {
+            "guid": "Nbb73334e6d1d8445ab1bdd715ef87f87",
+            "type": "SetRunAsUser",
+            "label": "Work as a sales representative",
+            "details": {
+              "personaGuid": "Pde0a4fee174557bd788516a9bff70940"
+            }
+          },
+          {
+            "guid": "Nf5f448db02311dcffcf6cc2210ebdc2d",
+            "type": "UseDataTemplate",
+            "label": "Load Customer account template",
+            "details": {
+              "dataTemplateGuid": "D7cd9cf007a2d892bb35fc09a8b000724"
+            }
+          }
+        ],
+        "Act_Definition_Data__c": [
+          {
+            "guid": "N8fa759339fd654e54d78a1ad4f7c1932",
+            "type": "CreateRecord",
+            "label": "Open an opportunity for the customer",
+            "details": {
+              "objectApiName": "Opportunity",
+              "fieldsToCreate": [
+                {
+                  "apiName": "Name",
+                  "dataType": "STRING",
+                  "value": "Northwind Traders - conveyor upgrade"
+                },
+                {
+                  "apiName": "StageName",
+                  "dataType": "PICKLIST",
+                  "value": "Prospecting"
+                },
+                {
+                  "apiName": "CloseDate",
+                  "dataType": "DATE",
+                  "value": "2027-03-31"
+                },
+                {
+                  "apiName": "Amount",
+                  "dataType": "CURRENCY",
+                  "value": "50000"
+                },
+                {
+                  "apiName": "AccountId",
+                  "dataType": "REFERENCE",
+                  "value": "D7cd9cf007a2d892bb35fc09a8b000724:N11b5cc6ab956dbbb36f0f8f47b69f67f"
+                }
+              ]
+            }
+          }
+        ],
+        "Assert_Definition_Data__c": [
+          {
+            "guid": "Nfaa5790c9916329a07ee6c355acb3737",
+            "type": "AssertOutcome",
+            "label": "Verify that the opportunity is open at Prospecting",
+            "description": "Proves the opportunity was saved as entered, at the first stage.",
+            "details": {
+              "assertType": "AssertRecordFieldValues",
+              "referredRecordGuid": "N8fa759339fd654e54d78a1ad4f7c1932",
+              "objectApiName": "Opportunity",
+              "fieldsToAssert": [
+                {
+                  "apiName": "StageName",
+                  "dataType": "PICKLIST",
+                  "value": "Prospecting",
+                  "operator": "eq"
+                },
+                {
+                  "apiName": "Amount",
+                  "dataType": "CURRENCY",
+                  "value": "50000",
+                  "operator": "ge"
+                }
+              ]
+            }
+          },
+          {
+            "guid": "N4164abe0a5ce9019b77596f0fb565228",
+            "type": "AssertOutcome",
+            "label": "Verify that the customer has one opportunity",
+            "description": "Proves exactly one opportunity was opened for the customer.",
+            "details": {
+              "assertType": "AssertRecordCount",
+              "objectApiName": "Opportunity",
+              "fieldsToFilterBy": [
+                {
+                  "apiName": "AccountId",
+                  "dataType": "REFERENCE",
+                  "value": "D7cd9cf007a2d892bb35fc09a8b000724:N11b5cc6ab956dbbb36f0f8f47b69f67f",
+                  "operator": "eq"
+                }
+              ],
+              "expectedRecordCount": "1",
+              "expectedRecordCountOperator": "eq"
+            }
+          }
+        ]
+      },
+      {
+        "GUID__c": "V154568cef9342b7379ccedc5d5f7adf8",
+        "Name": "An opportunity without a close date should be refused",
+        "Feature_Test__c": "T8783a4900d583b9cba4ef41e6a022980",
+        "Editor_Version__c": 1,
+        "Description__c": "Every opportunity needs a close date, so the forecast never contains a sale with no date.",
+        "Arrange_Definition_Data__c": [
+          {
+            "guid": "N6df5b958d1dc7cf65853b7386e9a640e",
+            "type": "SetRunAsUser",
+            "label": "Work as a sales representative",
+            "details": {
+              "personaGuid": "Pde0a4fee174557bd788516a9bff70940"
+            }
+          },
+          {
+            "guid": "Na0f6759743669cf02daf9f1999524547",
+            "type": "UseDataTemplate",
+            "label": "Load Customer account template",
+            "details": {
+              "dataTemplateGuid": "D7cd9cf007a2d892bb35fc09a8b000724"
+            }
+          }
+        ],
+        "Act_Definition_Data__c": [
+          {
+            "guid": "Nf93a7a6fe21e5749d04f51a30d0d3b7e",
+            "type": "CreateRecord",
+            "label": "Open an opportunity without a close date",
+            "details": {
+              "objectApiName": "Opportunity",
+              "fieldsToCreate": [
+                {
+                  "apiName": "Name",
+                  "dataType": "STRING",
+                  "value": "Northwind Traders - no date"
+                },
+                {
+                  "apiName": "StageName",
+                  "dataType": "PICKLIST",
+                  "value": "Prospecting"
+                },
+                {
+                  "apiName": "AccountId",
+                  "dataType": "REFERENCE",
+                  "value": "D7cd9cf007a2d892bb35fc09a8b000724:N11b5cc6ab956dbbb36f0f8f47b69f67f"
+                }
+              ]
+            }
+          }
+        ],
+        "Assert_Definition_Data__c": [
+          {
+            "guid": "Ndf323c8507fd9f94bab539b49683dea4",
+            "type": "AssertOutcome",
+            "label": "Verify that the opportunity was refused for its missing close date",
+            "description": "Proves the save was refused because the required close date was missing.",
+            "details": {
+              "assertType": "AssertErrorOccurred",
+              "referredRecordGuid": "Nf93a7a6fe21e5749d04f51a30d0d3b7e",
+              "objectApiName": "Opportunity",
+              "exceptionTypeToVerify": "System.DmlException",
+              "statusCodeToVerify": "REQUIRED_FIELD_MISSING"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
