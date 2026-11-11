@@ -1,7 +1,7 @@
 {
   "name": "testbench",
   "displayName": "Testbench",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Write, check, run and explain Testbench tests for Salesforce from your coding assistant: no-code regression tests built from Arrange, Act and Assert steps, with personas and data templates.",
   "author": {
     "name": "Adventurous Bits"

@@ -3,7 +3,7 @@ name: testbench-persona-generate
 description: "Use to write Testbench personas: users Testbench creates for a run, with the profile, role, permission sets, groups and user fields a kind of user holds in the org. Triggers when a user asks for a persona, a role or kind of user to test as, or to check what a particular user can or cannot do. Writes persona records in Testbench's own file format, checks them with the toolkit's script against the schema, the editor's rules and the org, then loads the persona into the org and validates it. Do NOT trigger for data templates (use testbench-data-template-generate), feature test steps (use testbench-feature-test-generate) or running anything that exists (use testbench-run)."
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   domains: ["Testing"]
   relatedSkills:
     - "testbench-feature-test-generate"

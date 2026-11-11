@@ -3,7 +3,7 @@ name: testbench-run
 description: "Use to run Testbench feature tests and validate personas and data templates in a Salesforce org, and to run them in a pipeline: run tests by name, category or all, or try a file just written, wait for the results and explain them. Works through the toolkit's script and the Salesforce CLI. Triggers when a user asks to run, re-run, try or validate Testbench tests, personas or templates, to see what passes in an org, or to run Testbench tests in a pipeline. Asks for confirmation before writing to a production org. Do NOT trigger for writing tests (use testbench-feature-test-generate), for saving tests into the project, loading them into another org or deleting them (use testbench-org-sync), or for explaining a failure in depth (use testbench-run-result-verify)."
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   domains: ["Testing"]
   relatedSkills:
     - "testbench-feature-test-generate"

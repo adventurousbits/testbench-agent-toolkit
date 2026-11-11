@@ -3,7 +3,7 @@ name: testbench-run-result-verify
 description: "Use to read and explain Testbench results: whether a feature test passed, which step failed and why, and whether a persona or data template validated. Turns a stored result into the sentences the Testbench editor shows, finds the cause and says what to change. Triggers when a user asks why a Testbench test failed, what a result or status code means, whether a test proves what it should, or to check the outcome of a run. Do NOT trigger for writing tests (use testbench-feature-test-generate) or for starting runs (use testbench-run)."
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   domains: ["Testing"]
   relatedSkills:
     - "testbench-feature-test-generate"

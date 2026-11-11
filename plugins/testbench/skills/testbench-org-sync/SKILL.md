@@ -3,7 +3,7 @@ name: testbench-org-sync
 description: "Use to move Testbench tests, personas and data templates between a Salesforce org and the project, or to delete them: save what the org holds into the project's files, load files into an org, and delete tests, personas, templates, versions or categories after the developer's yes. Works through the toolkit's script and the Salesforce CLI. Triggers when a user asks to save, keep, back up, export or pull Testbench tests into the project, to load, push, import or copy them into an org, or to delete them. Asks for confirmation before writing to a production org and before deleting anything. Do NOT trigger for writing tests (use testbench-feature-test-generate), running them (use testbench-run) or explaining results (use testbench-run-result-verify)."
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   domains: ["Testing"]
   relatedSkills:
     - "testbench-run"

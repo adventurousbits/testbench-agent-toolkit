@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 (11 November 2026)
+
+- The skill for writing feature tests called a test's third section Verify, the name Testbench used
+  before 1.6.0. It now says Assert, as the Testbench editor does.
+
 ## 1.0.0 (10 November 2026)
 
 The first version.

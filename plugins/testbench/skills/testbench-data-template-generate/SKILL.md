@@ -3,7 +3,7 @@ name: testbench-data-template-generate
 description: "Use to write Testbench data templates: sets of related records created together, such as a customer with contacts or an open deal with its products, that tests start from, and Global templates for baseline data every run needs. Triggers when a user asks for test data, a data template, a starting situation several tests share, or data the org's automation needs to exist. Writes data template records in Testbench's own file format, checks them with the toolkit's script against the schema, the editor's rules and the org, then loads the template into the org and validates it. Do NOT trigger for personas (use testbench-persona-generate), feature test steps (use testbench-feature-test-generate) or running anything that exists (use testbench-run)."
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   domains: ["Testing"]
   relatedSkills:
     - "testbench-feature-test-generate"

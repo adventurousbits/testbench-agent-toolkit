@@ -1,6 +1,6 @@
 {
   "name": "adventurousbits",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Agent tooling for Testbench, the no-code regression testing app for Salesforce.",
   "owner": {
     "name": "Adventurous Bits",

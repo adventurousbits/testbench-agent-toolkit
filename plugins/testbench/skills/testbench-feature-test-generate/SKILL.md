@@ -3,7 +3,7 @@ name: testbench-feature-test-generate
 description: "Use to write Testbench feature tests for a Salesforce org: no-code regression tests that check how the org behaves, built from Arrange, Act and Assert steps. Triggers when a user asks to write, add, extend or change a Testbench test, to cover a business rule, flow, validation rule or permission with a Testbench test, or to turn a described scenario into one. Writes the test in Testbench's own file format, checks it with the toolkit's script against the schema, the editor's rules and the org, then loads it into the org and runs it. Do NOT trigger for Apex test classes (use platform-apex-test-generate), for personas (use testbench-persona-generate) or data templates (use testbench-data-template-generate), or for running tests that exist (use testbench-run)."
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   domains: ["Testing"]
   relatedSkills:
     - "testbench-persona-generate"
@@ -44,7 +44,7 @@ run in this order:
 | ----------- | ----------------------------- | --------------------------------------------------- |
 | **Arrange** | Prepares the situation        | Select Persona, Use Data Template, Prepare Record   |
 | **Act**     | Does the one thing under test | Select Persona, Find, Create, Update, Delete Record |
-| **Verify**  | Checks the outcome            | Select Persona, Find Record, Verify Outcome         |
+| **Assert**  | Checks the outcome            | Select Persona, Find Record, Verify Outcome         |
 
 A **persona** is a user created for the run; a **Select Persona** step runs every following step as
 that persona, across sections, until the next one. A **data template** is a set of related records; a
